@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-public class EditorMenus : MonoBehaviour
+public class EditorMenus 
 {
-    // Start is called before the first frame update
-    void Start()
+    [MenuItem("Tutorial/Project/Project Setup Tool")]
+    public static void InitProjectSetupTool()
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
