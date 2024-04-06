@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-public class ProjectSetup_Window : MonoBehaviour
+namespace MiTutorial
 {
-    // Start is called before the first frame update
-    void Start()
+    public class ProjectSetup_Window : EditorWindow
     {
-        
-    }
+        //#region Variables
+        static ProjectSetup_Window win;
+        //#endregion
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //#region Main Methods
+        public static void InitWindow ()
+        {
+            win = EditorWindow.GetWindow<ProjectSetup_Window>("Project Setup");
+            win.Show();
+        }
+
+        void OnGUI()
+        {
+            EditorGUILayout.LabelField("Proyect Setup");
+        }
+        //#endregion
+
+
+
     }
 }
+
