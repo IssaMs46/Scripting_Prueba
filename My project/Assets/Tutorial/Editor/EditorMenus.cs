@@ -31,7 +31,7 @@ namespace  MiTutorial
         public static void InitFuentes_PU()
         {
             Debug.Log("Inicia ventana fuenets PU");
-            Tipos_PU.InitWindow();
+            Fuentes_PU.InitWindow();
         }
 
         ///////////////// SERVIDORES CI ////////////////////////////////77
@@ -67,7 +67,7 @@ namespace  MiTutorial
         public static void InitIntro_UTF()
         {
             Debug.Log("Inicia ventana UTF");
-            Tipos_PU.InitWindow();
+            Intro_UTF.InitWindow();
         }
         /////////
         [MenuItem("Tutorial/UTF/Manual UTF")]
