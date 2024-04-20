@@ -13,6 +13,7 @@ namespace MiTutorial
 
         //private string gameName = "Game";
 
+        Vector2 scrollPosition = Vector2.zero;
 
 
         public static void InitWindow()
@@ -25,17 +26,52 @@ namespace MiTutorial
         void OnGUI()
         {
 
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Fuentes de informacion", EditorStyles.boldLabel);  // TÍTULO EN NEGRITA
-            EditorGUILayout.LabelField("links");  //TEXTO NORMAL
+            GUIStyle bigBoldLabelStyle = new GUIStyle(EditorStyles.boldLabel);
+            bigBoldLabelStyle.fontSize = 16;
 
-            //gameName=EditorGUILayout.TextField("Game name:", gameName);
-            EditorGUILayout.EndHorizontal();
 
-            //if(GUILayout.Button ("Create Project Structure", GUILayout.Height(30), GUILayout.ExpandWidth(true)))
-            //{
-            //    Debug.Log("presion de botón");
-            //}
+            EditorGUILayout.LabelField("Unit Testing en Unity", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA;
+
+            EditorGUILayout.Space();
+
+            GUIStyle linkStyle = new GUIStyle(GUI.skin.label);
+            linkStyle.normal.textColor = Color.blue;
+            if (GUILayout.Button("Unit Testing en Unity", linkStyle))
+            {
+                // Abrir el enlace en el navegador
+                Application.OpenURL("https://histeriagamedev.wordpress.com/2020/06/20/unit-testing-en-unity/");
+            }
+
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Unit Testing en Unity", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA;
+
+            EditorGUILayout.Space();
+
+           
+
+            if (GUILayout.Button("Unit Testing pero ligado a UTF", linkStyle))
+            {
+                // Abrir el enlace en el navegador
+                Application.OpenURL("https://docs.unity3d.com/Manual/testing-editortestsrunner.html");
+            }
+
+            EditorGUILayout.Space();
+
+            if (GUILayout.Button("Tuutorial básico", linkStyle))
+            {
+                // Abrir el enlace en el navegador
+                Application.OpenURL("https://www.youtube.com/watch?v=pr5FBtu5SvQ");
+            }
+
+            EditorGUILayout.Space();
+
+
+
+
+
+
+
 
             if (winFuentesPU != null)
             {
