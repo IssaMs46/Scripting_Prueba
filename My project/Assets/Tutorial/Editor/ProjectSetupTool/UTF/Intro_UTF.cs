@@ -1,68 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using MiTutorial;
-
+using UnityEditor.UIElements;
+using UnityEngine.UIElements;
 
 namespace MiTutorial
 {
     public class Intro_UTF : EditorWindow
     {
-
         static Intro_UTF winIntro;
 
-        private string IntroUTF1 = "El Unity Test Framework es una herramienta integrada\n en Unity que permite a los desarrolladores \nrealizar pruebas unitarias dentro del entorno de desarrollo \nde Unity. Este framework proporciona un conjunto \nde clases y métodos que facilitan la escritura, \nejecución y organización de pruebas unitarias para \nel código de juegos y aplicaciones desarrolladas \ncon Unity. Con el Unity Test Framework, los desarrolladores \npueden crear pruebas para verificar el comportamiento de componentes \nindividuales, como scripts de Unity, prefabs, \ncomponentes de interfaz de usuario y más.";
-        private string IntroUTF2 = "El Unity Test Framework sirve para asegurar la calidad \ny estabilidad del software desarrollado con \nUnity mediante la identificación temprana de errores y la\n validación del comportamiento esperado de las \ndistintas partes del código. Al escribir pruebas \nunitarias con este framework, los desarrolladores \npueden detectar y corregir problemas de manera más \neficiente, garantizando un código más robusto y confiable. \nAdemás, el uso del Unity Test Framework promueve buenas prácticas de \ndesarrollo, como la modularidad y la separación de \npreocupaciones, lo que conduce a un código \nmás mantenible y escalable en proyectos de \ndesarrollo de juegos y aplicaciones con Unity";
-
-
-        Vector2 scrollPosition = Vector2.zero;
+        private string IntroUTF1 = "El Unity Test Framework es una herramienta integrada en Unity que permite a los desarrolladores realizar pruebas unitarias dentro del entorno de desarrollo de Unity. Este framework proporciona un conjunto de clases y métodos que facilitan la escritura, ejecución y organización de pruebas unitarias para el código de juegos y aplicaciones desarrolladas con Unity. Con el Unity Test Framework, los desarrolladores pueden crear pruebas para verificar el comportamiento de componentes individuales, como scripts de Unity, prefabs, componentes de interfaz de usuario y más.";
+        private string IntroUTF2 = "El Unity Test Framework sirve para asegurar la calidad y estabilidad del software desarrollado con Unity mediante la identificación temprana de errores y la validación del comportamiento esperado de las distintas partes del código. Al escribir pruebas unitarias con este framework, los desarrolladores pueden detectar y corregir problemas de manera más eficiente, garantizando un código más robusto y confiable. Además, el uso del Unity Test Framework promueve buenas prácticas de desarrollo, como la modularidad y la separación de preocupaciones, lo que conduce a un código más mantenible y escalable en proyectos de desarrollo de juegos y aplicaciones con Unity.";
 
         public static void InitWindow()
         {
-            winIntro = EditorWindow.GetWindow<Intro_UTF>("Una pequeña introducción");
-
+            winIntro = GetWindow<Intro_UTF>("Introducción UTF");
+            winIntro.minSize = new Vector2(400, 300);
             winIntro.Show();
         }
 
-        void OnGUI()
+        void OnEnable()
         {
+            VisualElement root = rootVisualElement;
 
-            GUIStyle bigBoldLabelStyle = new GUIStyle(EditorStyles.boldLabel);
-            bigBoldLabelStyle.fontSize = 16;
+            // Create ScrollView
+            ScrollView scrollView = new ScrollView();
+            scrollView.style.flexGrow = 1;
 
-            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition); // Agregar scroll vertical general
+            // Create Label for IntroUTF1
+            Label label1 = new Label(IntroUTF1);
+            label1.style.whiteSpace = WhiteSpace.Normal;
+            label1.style.fontSize = 14; // Tamaño de la letra
+            scrollView.Add(label1);
 
+            // Add space between paragraphs
+            scrollView.Add(new Label(" "));
 
-            EditorGUILayout.LabelField("Introducción", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA
+            // Create Label for IntroUTF2
+            Label label2 = new Label(IntroUTF2);
+            label2.style.whiteSpace = WhiteSpace.Normal;
+            label2.style.fontSize = 14; // Tamaño de la letra
+            scrollView.Add(label2);
 
-
-            string[] IntroUTF1lines = IntroUTF1.Split(new[] { "\n", "\r\n" }, System.StringSplitOptions.RemoveEmptyEntries);
-            foreach (string line in IntroUTF1lines)
-            {
-                EditorGUILayout.LabelField(line);
-            }
-
-
-            EditorGUILayout.Space();
-
-            string[] IntroUTF2lines = IntroUTF2.Split(new[] { "\n", "\r\n" }, System.StringSplitOptions.RemoveEmptyEntries);
-            foreach (string line in IntroUTF2lines)
-            {
-                EditorGUILayout.LabelField(line);
-            }
-
-            EditorGUILayout.Space();
-
-
-
-            EditorGUILayout.EndScrollView();
-
-            if (winIntro != null)
-            {
-                winIntro.Repaint();
-            }
+            // Add ScrollView to root
+            root.Add(scrollView);
         }
-
     }
 }
