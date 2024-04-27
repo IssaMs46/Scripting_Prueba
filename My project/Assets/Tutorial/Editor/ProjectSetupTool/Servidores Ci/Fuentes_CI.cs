@@ -20,12 +20,45 @@ namespace MiTutorial
 
         void OnGUI()
         {
+            GUIStyle bigBoldLabelStyle = new GUIStyle(EditorStyles.boldLabel);
+            bigBoldLabelStyle.fontSize = 16;
 
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Fuentes sobre servidores CI", EditorStyles.boldLabel);  // TÍTULO EN NEGRITA
-            EditorGUILayout.LabelField("lista de fuentes, links");  //TEXTO NORMAL
 
-            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.LabelField("¿Qué son?", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA;
+
+            EditorGUILayout.Space();
+
+            GUIStyle linkStyle = new GUIStyle(GUI.skin.label);
+            linkStyle.normal.textColor = Color.blue;
+            if (GUILayout.Button("¿Qué son los servidores de integración continua?", linkStyle))
+            {
+                // Abrir el enlace en el navegador
+                Application.OpenURL("https://www.jetbrains.com/es-es/teamcity/ci-cd-guide/ci-cd-tools/servers/");
+            }
+
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Github Actions como servidor CI", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA;
+
+            EditorGUILayout.Space();
+
+
+
+            if (GUILayout.Button("Unit Testing pero ligado a UTF", linkStyle))
+            {
+                // Abrir el enlace en el navegador
+                Application.OpenURL("https://docs.unity3d.com/Manual/testing-editortestsrunner.html");
+            }
+
+            EditorGUILayout.Space();
+
+            if (GUILayout.Button("Tuutorial básico", linkStyle))
+            {
+                // Abrir el enlace en el navegador
+                Application.OpenURL("https://www.youtube.com/watch?v=pr5FBtu5SvQ");
+            }
+
+            EditorGUILayout.Space();
 
 
             if (winFuentesCI != null)
