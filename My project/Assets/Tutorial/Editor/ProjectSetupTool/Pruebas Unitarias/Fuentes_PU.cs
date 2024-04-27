@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.UIElements;
+using UnityEngine.UIElements;
+
 
 namespace MiTutorial
 {
@@ -11,74 +14,67 @@ namespace MiTutorial
         static Fuentes_PU winFuentesPU;
 
 
-        //private string gameName = "Game";
-
-        Vector2 scrollPosition = Vector2.zero;
-
-
         public static void InitWindow()
         {
-            winFuentesPU = EditorWindow.GetWindow<Fuentes_PU>("Project Setup");
-
+            winFuentesPU = EditorWindow.GetWindow<Fuentes_PU>("Fuentes sobre Pruebas Unitarias");
+            winFuentesPU.minSize = new Vector2(400, 300);
             winFuentesPU.Show();
         }
 
-        void OnGUI()
+        void OnEnable()
         {
+            VisualElement root = rootVisualElement;
+            ScrollView scrollView = new ScrollView();
+            scrollView.style.flexGrow = 1;
 
-            GUIStyle bigBoldLabelStyle = new GUIStyle(EditorStyles.boldLabel);
-            bigBoldLabelStyle.fontSize = 16;
+            scrollView.Add(new Label(" "));
 
 
-            EditorGUILayout.LabelField("Unit Testing en Unity", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA;
-
-            EditorGUILayout.Space();
-
-            GUIStyle linkStyle = new GUIStyle(GUI.skin.label);
-            linkStyle.normal.textColor = Color.blue;
-            if (GUILayout.Button("Unit Testing en Unity", linkStyle))
+            Button hyperlinkButton = new Button(() =>
             {
-                // Abrir el enlace en el navegador
                 Application.OpenURL("https://histeriagamedev.wordpress.com/2020/06/20/unit-testing-en-unity/");
-            }
+            });
+            hyperlinkButton.text = "Unit Testing en Unity";
+            hyperlinkButton.style.color = new StyleColor(Color.blue);
+            hyperlinkButton.AddToClassList("hipervinculo"); // Agrega una clase CSS para estilizar el botón si lo deseas
+            scrollView.Add(hyperlinkButton);
 
-            EditorGUILayout.Space();
+            scrollView.Add(new Label(" "));
 
-            EditorGUILayout.LabelField("Unit Testing en Unity", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA;
+            //
 
-            EditorGUILayout.Space();
-
-           
-
-            if (GUILayout.Button("Unit Testing pero ligado a UTF", linkStyle))
+            Button hyperlinkButton2 = new Button(() =>
             {
-                // Abrir el enlace en el navegador
                 Application.OpenURL("https://docs.unity3d.com/Manual/testing-editortestsrunner.html");
-            }
+            });
+            hyperlinkButton2.text = "Unit Testing pero ligado a UTF";
+            hyperlinkButton2.style.color = new StyleColor(Color.blue);
+            hyperlinkButton2.AddToClassList("hipervinculo"); // Agrega una clase CSS para estilizar el botón si lo deseas
+            scrollView.Add(hyperlinkButton2);
 
-            EditorGUILayout.Space();
+            scrollView.Add(new Label(" "));
 
-            if (GUILayout.Button("Tuutorial básico", linkStyle))
+            //
+
+            Button hyperlinkButton3 = new Button(() =>
             {
-                // Abrir el enlace en el navegador
                 Application.OpenURL("https://www.youtube.com/watch?v=pr5FBtu5SvQ");
-            }
-
-            EditorGUILayout.Space();
-
-
-
-
+            });
+            hyperlinkButton3.text = "Tutorial básico";
+            hyperlinkButton3.style.color = new StyleColor(Color.blue);
+            hyperlinkButton3.AddToClassList("hipervinculo"); // Agrega una clase CSS para estilizar el botón si lo deseas
+            scrollView.Add(hyperlinkButton3);
 
 
-
-
-            if (winFuentesPU != null)
-            {
-                winFuentesPU.Repaint();
-            }
+            // Add ScrollView to root
+            root.Add(scrollView);
 
         }
+
+
+
+
+        
 
     }
 }

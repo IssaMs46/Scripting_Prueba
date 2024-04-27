@@ -22,55 +22,72 @@ namespace MiTutorial
             winFuentesCI.Show();
         }
 
-        void OnGUI()
+
+
+        void OnEnable ()
         {
-            GUIStyle bigBoldLabelStyle = new GUIStyle(EditorStyles.boldLabel);
-            bigBoldLabelStyle.fontSize = 16;
+            VisualElement root = rootVisualElement;
+            ScrollView scrollView = new ScrollView();
+            scrollView.style.flexGrow = 1;
+
+            scrollView.Add(new Label(" "));
 
 
-            EditorGUILayout.LabelField("¿Qué son?", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA;
-
-            EditorGUILayout.Space();
-
-            GUIStyle linkStyle = new GUIStyle(GUI.skin.label);
-            linkStyle.normal.textColor = Color.blue;
-            if (GUILayout.Button("¿Qué son los servidores de integración continua?", linkStyle))
+            Button hyperlinkButton = new Button(() =>
             {
-                // Abrir el enlace en el navegador
                 Application.OpenURL("https://www.jetbrains.com/es-es/teamcity/ci-cd-guide/ci-cd-tools/servers/");
-            }
+            });
+            hyperlinkButton.text = "¿Qué son los servidores de integración continua?";
+            hyperlinkButton.style.color = new StyleColor(Color.blue);
+            hyperlinkButton.AddToClassList("hipervinculo"); // Agrega una clase CSS para estilizar el botón si lo deseas
+            scrollView.Add(hyperlinkButton);
 
-            EditorGUILayout.Space();
+            scrollView.Add(new Label(" "));
 
-            EditorGUILayout.LabelField("Github Actions como servidor CI", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA;
+            //
 
-            EditorGUILayout.Space();
-
-
-
-            if (GUILayout.Button("Unit Testing pero ligado a UTF", linkStyle))
+            Button hyperlinkButton2 = new Button(() =>
             {
-                // Abrir el enlace en el navegador
-                Application.OpenURL("https://docs.unity3d.com/Manual/testing-editortestsrunner.html");
-            }
+                Application.OpenURL("https://histeriagamedev.wordpress.com/2020/06/20/unit-testing-en-unity/");
+            });
+            hyperlinkButton2.text = "Integración y distriibución continua (CI/CD)";
+            hyperlinkButton2.style.color = new StyleColor(Color.blue);
+            hyperlinkButton2.AddToClassList("hipervinculo"); // Agrega una clase CSS para estilizar el botón si lo deseas
+            scrollView.Add(hyperlinkButton2);
+             
+            scrollView.Add(new Label(" "));
 
-            EditorGUILayout.Space();
+            //
 
-            if (GUILayout.Button("Tuutorial básico", linkStyle))
+            Button hyperlinkButton3 = new Button(() =>
             {
-                // Abrir el enlace en el navegador
-                Application.OpenURL("https://www.youtube.com/watch?v=pr5FBtu5SvQ");
-            }
+                Application.OpenURL("https://docs.github.com/es/actions/automating-builds-and-tests/about-continuous-integration");
+            });
+            hyperlinkButton3.text = "Acerca de la integración continua";
+            hyperlinkButton3.style.color = new StyleColor(Color.blue);
+            hyperlinkButton3.AddToClassList("hipervinculo"); // Agrega una clase CSS para estilizar el botón si lo deseas
+            scrollView.Add(hyperlinkButton3);
 
-            EditorGUILayout.Space();
+            scrollView.Add(new Label(" "));
 
+            //
 
-            if (winFuentesCI != null)
+            Button hyperlinkButton4 = new Button(() =>
             {
-                winFuentesCI.Repaint();
-            }
+                Application.OpenURL("https://www.youtube.com/watch?v=sIhm4YOMK6Q");
+            });
+            hyperlinkButton4.text = "Tutorial GitHub Actions";
+            hyperlinkButton4.style.color = new StyleColor(Color.blue);
+            hyperlinkButton4.AddToClassList("hipervinculo"); // Agrega una clase CSS para estilizar el botón si lo deseas
+            scrollView.Add(hyperlinkButton4);
+
+
+
+            // Add ScrollView to root
+            root.Add(scrollView);
 
         }
+        
 
     }
 }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.UIElements;
+using UnityEngine.UIElements;
 
 namespace MiTutorial
 {
@@ -14,66 +16,74 @@ namespace MiTutorial
         public static void InitWindow()
         {
             winFuentesUTF = EditorWindow.GetWindow<Fuentes_UTF>("Fuentes sobre UTF");
-
+            winFuentesUTF.minSize = new Vector2(400, 300);
             winFuentesUTF.Show();
         }
 
-        void OnGUI()
+
+
+        /// 
+        void OnEnable()
         {
+            VisualElement root = rootVisualElement;
+            ScrollView scrollView = new ScrollView();
+            scrollView.style.flexGrow = 1;
 
-            GUIStyle bigBoldLabelStyle = new GUIStyle(EditorStyles.boldLabel);
-            bigBoldLabelStyle.fontSize = 16;
+            scrollView.Add(new Label(" "));
 
 
-            EditorGUILayout.LabelField("About Unity Test Framework", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA;
-
-            EditorGUILayout.Space();
-
-            GUIStyle linkStyle = new GUIStyle(GUI.skin.label);
-            linkStyle.normal.textColor = Color.blue;
-            if (GUILayout.Button("https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html", linkStyle))
+            Button hyperlinkButton = new Button(() =>
             {
-                // Abrir el enlace en el navegador
                 Application.OpenURL("https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html");
-            }
+            });
+            hyperlinkButton.text = "About Unity Test Framework";
+            hyperlinkButton.style.color = new StyleColor(Color.blue);
+            hyperlinkButton.AddToClassList("hipervinculo"); // Agrega una clase CSS para estilizar el botón si lo deseas
+            scrollView.Add(hyperlinkButton);
 
-            EditorGUILayout.Space();
+            scrollView.Add(new Label(" "));
 
-            EditorGUILayout.LabelField("QA your code: The new Unity Test Framework ", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA;
+            //
 
-            EditorGUILayout.Space();
-
-
-
-            if (GUILayout.Button("https://www.youtube.com/watch?v=wTiF2D0_vKA", linkStyle))
+            Button hyperlinkButton2 = new Button(() =>
             {
-                // Abrir el enlace en el navegador
                 Application.OpenURL("https://www.youtube.com/watch?v=wTiF2D0_vKA");
-            }
+            });
+            hyperlinkButton2.text = "QA your code: The new Unity Test Framework";
+            hyperlinkButton2.style.color = new StyleColor(Color.blue);
+            hyperlinkButton2.AddToClassList("hipervinculo"); // Agrega una clase CSS para estilizar el botón si lo deseas
+            scrollView.Add(hyperlinkButton2);
 
-            EditorGUILayout.Space();
+            scrollView.Add(new Label(" "));
 
+            //
 
-
-            EditorGUILayout.LabelField("QuickStart guide UTF 2022", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA;
-
-            EditorGUILayout.Space();
-
-            if (GUILayout.Button("https://gamedevdustin.medium.com/quickstart-guide-unitys-test-framework-in-unity-2022-1ee25fe94765", linkStyle))
+            Button hyperlinkButton3 = new Button(() =>
             {
-                // Abrir el enlace en el navegador
                 Application.OpenURL("https://gamedevdustin.medium.com/quickstart-guide-unitys-test-framework-in-unity-2022-1ee25fe94765");
-            }
+            });
+            hyperlinkButton3.text = "QuickStart guide UTF 2022";
+            hyperlinkButton3.style.color = new StyleColor(Color.blue);
+            hyperlinkButton3.AddToClassList("hipervinculo"); // Agrega una clase CSS para estilizar el botón si lo deseas
+            scrollView.Add(hyperlinkButton3);
 
-            EditorGUILayout.Space();
+            scrollView.Add(new Label(" "));
+
+            //
+
+          
 
 
-            if (winFuentesUTF != null)
-            {
-                winFuentesUTF.Repaint();
-            }
+
+            // Add ScrollView to root
+            root.Add(scrollView);
 
         }
+
+        ///
+
+
+        
 
     }
 }

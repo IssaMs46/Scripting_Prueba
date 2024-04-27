@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.UIElements;
+using UnityEngine.UIElements;
 
 namespace MiTutorial
 {
@@ -10,57 +12,48 @@ namespace MiTutorial
 
         static Manual_UTF winManualUTF;
 
-        private string MiniIntro = "Aquí podré el manual de UTF, el cual puede brindar mucha más información :) ";
-
-        Vector2 scrollPosition = Vector2.zero;
         public static void InitWindow()
         {
             winManualUTF = EditorWindow.GetWindow<Manual_UTF>("Manual UTF");
-
+            winManualUTF.minSize = new Vector2(400, 300);
             winManualUTF.Show();
         }
 
-        void OnGUI()
+        //
+        void OnEnable()
         {
+            VisualElement root = rootVisualElement;
+            ScrollView scrollView = new ScrollView();
+            scrollView.style.flexGrow = 1;
 
-            GUIStyle bigBoldLabelStyle = new GUIStyle(EditorStyles.boldLabel);
-            bigBoldLabelStyle.fontSize = 16;
-
-            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition); // Agregar scroll vertical general
-
-
-            EditorGUILayout.LabelField("Manual UTF", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA
+            scrollView.Add(new Label(" "));
 
 
-            string[] MiniIntrolines =  MiniIntro.Split(new[] { "\n", "\r\n" }, System.StringSplitOptions.RemoveEmptyEntries);
-
-
-            foreach (string line in MiniIntrolines)
+            Button hyperlinkButton = new Button(() =>
             {
-                EditorGUILayout.LabelField(line);
-            }
-
-
-
-            EditorGUILayout.Space();
-
-            GUIStyle linkStyle = new GUIStyle(GUI.skin.label);
-            linkStyle.normal.textColor = Color.blue;
-            if (GUILayout.Button("Manual UTF", linkStyle))
-            {
-                // Abrir el enlace en el navegador
                 Application.OpenURL("https://docs.unity3d.com/Packages/com.unity.test-framework@1.4/manual/manual.html");
-            }
+            });
+            hyperlinkButton.text = "Manual UTF";
+            hyperlinkButton.style.color = new StyleColor(Color.blue);
+            hyperlinkButton.AddToClassList("hipervinculo"); // Agrega una clase CSS para estilizar el botón si lo deseas
+            scrollView.Add(hyperlinkButton);
 
-            EditorGUILayout.EndScrollView();
+            scrollView.Add(new Label(" "));
+
+            //
+
+            
 
 
-            if (winManualUTF != null)
-            {
-                winManualUTF.Repaint();
-            }
+            // Add ScrollView to root
+            root.Add(scrollView);
 
         }
+
+        //
+
+
+        
 
     }
 }
