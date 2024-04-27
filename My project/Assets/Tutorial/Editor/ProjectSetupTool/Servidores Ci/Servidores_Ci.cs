@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using MiTutorial;
+using UnityEditor.UIElements;
+using UnityEngine.UIElements;
+
 
 
 namespace MiTutorial
@@ -11,8 +14,8 @@ namespace MiTutorial
     {
 
         static Servidores_Ci winVinculacion;
-        private string QueEs = "Los Servidores de Integración Continua (CI, por sus siglas en inglés) \nson plataformas de software que automatizan el proceso \n de integración de cambios en el código de un proyecto \nde software. Estas herramientas se utilizan comúnmente en entornos \nde desarrollo de software para automatizar la compilación, prueba \ny distribución del código cada vez que se realizan cambios \nen el repositorio de código fuente. Los servidores CI \nestán diseñados para trabajar en conjunto con sistemas \nde control de versiones, como Git, SVN u otros, y pueden ejecutar una serie \nde tareas definidas, como la compilación del código, la \nejecución de pruebas unitarias y la generación \nde informes de cobertura de código.";
-        private string ParaQue = "La integración de Unity Test Framework (UTF) con Servidores de \nIntegración Continua permite a los equipos de desarrollo automatizar \nlas pruebas unitarias de sus proyectos de Unity \ncomo parte del proceso de integración continua. Esto significa que \ncada vez que se realizan cambios en el código, el servidor CI \npuede ejecutar automáticamente las pruebas unitarias escritas \ncon UTF para verificar que el código nuevo o modificado no \ncause regresiones o errores. Al automatizar las pruebas \nunitarias con un servidor CI, los equipos pueden identificar rápidamente \nproblemas en el código y mantener la calidad del software \na lo largo del tiempo, lo que resulta en un \ndesarrollo más eficiente y confiable.";
+        private string QueEs = "Los Servidores de Integración Continua (CI, por sus siglas en inglés) son plataformas de software que automatizan el proceso de integración de cambios en el código de un proyecto de software. Estas herramientas se utilizan comúnmente en entornos de desarrollo de software para automatizar la compilación, prueba y distribución del código cada vez que se realizan cambios en el repositorio de código fuente. Los servidores CI están diseñados para trabajar en conjunto con sistemas de control de versiones, como Git, SVN u otros, y pueden ejecutar una serie de tareas definidas, como la compilación del código, la ejecución de pruebas unitarias y la generación de informes de cobertura de código.";
+        private string ParaQue = "La integración de Unity Test Framework (UTF) con Servidores de Integración Continua permite a los equipos de desarrollo automatizar las pruebas unitarias de sus proyectos de Unity como parte del proceso de integración continua. Esto significa que cada vez que se realizan cambios en el código, el servidor CI puede ejecutar automáticamente las pruebas unitarias escritas con UTF para verificar que el código nuevo o modificado no cause regresiones o errores. Al automatizar las pruebas unitarias con un servidor CI, los equipos pueden identificar rápidamente problemas en el código y mantener la calidad del software a lo largo del tiempo, lo que resulta en un desarrollo más eficiente y confiable.";
 
         Vector2 scrollPosition = Vector2.zero;
 
@@ -22,65 +25,70 @@ namespace MiTutorial
 
             winVinculacion.Show();
         }
-
-        void OnGUI()
+        void OnEnable()
         {
-            GUIStyle bigBoldLabelStyle = new GUIStyle(EditorStyles.boldLabel);
-            bigBoldLabelStyle.fontSize = 16;
+            VisualElement root = rootVisualElement;
 
-            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition); // Agregar scroll vertical general
+            // Create ScrollView
+            ScrollView scrollView = new ScrollView();
+            scrollView.style.flexGrow = 1;
 
-            EditorGUILayout.LabelField("¿Qué son?", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA
+            // Add space between paragraphs
+            scrollView.Add(new Label(" "));
 
 
-             // Espacio entre el título y el texto
+  
 
+            // Create Label for Tip1
+            Label titleLabel1 = new Label("¿Qué son los servidores CI?");
+            titleLabel1.style.whiteSpace = WhiteSpace.Normal;
+            titleLabel1.style.fontSize = 16; // Tamaño de la letra
+            titleLabel1.style.unityFontStyleAndWeight = FontStyle.Bold;
+            scrollView.Add(titleLabel1);
 
-            //QueEs = EditorGUILayout.TextArea(QueEs, GUILayout.ExpandHeight(true));  // TEXTO NORMAL con Texto
+            Label label1 = new Label(QueEs);
+            label1.style.whiteSpace = WhiteSpace.Normal;
+            label1.style.fontSize = 14; // Tamaño de la letra
+            scrollView.Add(label1);
 
-            string[] QueEslines = QueEs.Split(new[] { "\n", "\r\n" }, System.StringSplitOptions.RemoveEmptyEntries);
-            foreach (string line in QueEslines)
-            {
-                EditorGUILayout.LabelField(line);
-            }
+            // Add space between paragraphs
+            scrollView.Add(new Label(" "));
 
+            // Create Label for Tip2
+            Label titleLabel2 = new Label("¿Para qué sirven?");
+            titleLabel2.style.whiteSpace = WhiteSpace.Normal;
+            titleLabel2.style.fontSize = 16; // Tamaño de la letra
+            titleLabel2.style.unityFontStyleAndWeight = FontStyle.Bold;
+            scrollView.Add(titleLabel2);
+
+            Label label2 = new Label(ParaQue);
+            label2.style.whiteSpace = WhiteSpace.Normal;
+            label2.style.fontSize = 14; // Tamaño de la letra
+            scrollView.Add(label2);
+
+            // Add space between paragraphs
             
+            // Add space between paragraphs
+            scrollView.Add(new Label(" "));
 
-            EditorGUILayout.Space();
+            Button hyperlinkButton = new Button(() =>
+            {
+                Application.OpenURL("https://www.youtube.com/watch?v=u5LGtbsodpE");
+            });
+            hyperlinkButton.text = "Más información";
+            hyperlinkButton.style.color = new StyleColor(Color.blue);
+            hyperlinkButton.AddToClassList("hipervinculo"); // Agrega una clase CSS para estilizar el botón si lo deseas
+            scrollView.Add(hyperlinkButton);
 
-            EditorGUILayout.LabelField("¿Para qué sirve?", bigBoldLabelStyle, GUILayout.ExpandHeight(false));  // TÍTULO EN NEGRITA
+
+
+
+            // Add ScrollView to root
+            root.Add(scrollView);
+        }
+
 
         
-
-            string[] ParaQuelines = ParaQue.Split(new[] { "\n", "\r\n" }, System.StringSplitOptions.RemoveEmptyEntries);
-
-
-            foreach (string line in ParaQuelines)
-            {
-                EditorGUILayout.LabelField(line);
-            }
-
-            EditorGUILayout.Space();
-            GUIStyle linkStyle = new GUIStyle(GUI.skin.label);
-            linkStyle.normal.textColor = Color.blue;
-            if (GUILayout.Button("Más información", linkStyle))
-            {
-                // Abrir el enlace en el navegador
-                Application.OpenURL("https://www.youtube.com/watch?v=u5LGtbsodpE");
-            }
-
-            EditorGUILayout.EndScrollView();
-
-            //REVISAR SI USAR ESTE LINK O SI USAR OTRO
-
-
-
-
-            if (winVinculacion != null)
-            {
-                winVinculacion.Repaint();
-            }
-        }
 
     }
 }

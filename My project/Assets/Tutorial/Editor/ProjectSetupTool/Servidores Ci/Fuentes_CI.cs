@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.UIElements;
+using UnityEngine.UIElements;
+using UnityEngine.Windows;
+
 
 namespace MiTutorial
 {
@@ -14,7 +18,7 @@ namespace MiTutorial
         public static void InitWindow()
         {
             winFuentesCI = EditorWindow.GetWindow<Fuentes_CI>("Fuentes sobre servidores CI");
-
+            winFuentesCI.minSize = new Vector2(400, 300);
             winFuentesCI.Show();
         }
 
