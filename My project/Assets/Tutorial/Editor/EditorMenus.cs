@@ -30,7 +30,7 @@ namespace  MiTutorial
 
         public static void InitFuentes_PU()
         {
-            Debug.Log("Inicia ventana fuenntes PU");
+            Debug.Log("Inicia ventana fuentes PU");
             Fuentes_PU.InitWindow();
         }
 
